@@ -1,0 +1,10 @@
+.custom-menu-item {
+    background-color: #3c879e; 
+    color: #fff; 
+}
+
+.custom-menu-item:hover {
+    background-color: #fff; /* Change to your desired hover background color */
+    color: #295d6d; /* Change to your desired hover text color */
+}
+    

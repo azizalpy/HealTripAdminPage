@@ -1,7 +1,9 @@
+import { SideBar } from "./SideBar";
+
 export default function Home() {
     return (
-      <div style={{marginTop:"59px"}}>
-        <h1>Burak</h1>
+      <div style={{margin:"0"}}>
+        <SideBar ></SideBar>
       </div>
     );
   }
