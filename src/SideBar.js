@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const SideBar = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -21,7 +21,7 @@ export const SideBar = () => {
     <>
       
       {sidebarOpen && (
-        <Sidebar style={{ position: "fixed" }}>
+        <Sidebar  backgroundColor="#3c879e" style={{ position: "fixed", height:"100%"}}>
           
           <div
             style={{
@@ -30,17 +30,10 @@ export const SideBar = () => {
               marginRight: "190px",
             }}
           >
-            <IconButton
-              edge="start"
-              style={{ color: "#295d6d", padding: "0", margin: "0" }}
-              aria-label="logo"
-            >
-              <HealingIcon />
-            </IconButton>
-            <h2 style={{ color: "#295d6d", fontWeight: "bold" }}>HealTrip</h2>
-            <IconButton className="close-icon" onClick={toggleSidebar}>
-              <CloseIcon />
-            </IconButton>
+              <HealingIcon aria-label="logo" edge="start" style={{ color: "#fff", paddingLeft:"20px", paddingRight:"10px" }} />
+
+            <h2 style={{ color: "#fff", fontWeight: "bold" }}>HealTrip</h2>
+              <CloseIcon style={{color:"#fff", cursor: "pointer", marginLeft:"50px"}} onClick={toggleSidebar} />
           </div>
 
           <Menu>
