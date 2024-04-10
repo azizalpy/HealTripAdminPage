@@ -4,7 +4,6 @@ import "./SideBar.css";
 import HealingIcon from "@mui/icons-material/Healing";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu"; 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const SideBar = () => {
@@ -22,7 +21,8 @@ export const SideBar = () => {
     <>
       
       {sidebarOpen && (
-        <Sidebar>
+        <Sidebar style={{ position: "fixed" }}>
+          
           <div
             style={{
               display: "flex",
