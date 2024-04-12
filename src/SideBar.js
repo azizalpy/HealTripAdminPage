@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./SideBar.css";
 import HealingIcon from "@mui/icons-material/Healing";
 import CloseIcon from "@mui/icons-material/Close";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Treatments } from "./Treatments";
 import { Row, Col, Container } from "reactstrap";
 import { Departments } from "./Departments";
@@ -11,17 +11,13 @@ import { Hospitals } from "./Hospitals";
 import { Doctors } from "./Doctors";
 import { Patients } from "./Patients";
 
-
 export const SideBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
-
   const [activeMenuItem, setActiveMenuItem] = useState(null);
 
-const handleMenuItemClick = (itemName) => {
-  setActiveMenuItem(itemName);
-}
-    
+  const handleMenuItemClick = (itemName) => {
+    setActiveMenuItem(itemName);
+  };
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
