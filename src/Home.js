@@ -1,5 +1,4 @@
 import { SideBar } from "./SideBar";
-import { Treatments } from "./Treatments";
 
 export default function Home() {
     return (

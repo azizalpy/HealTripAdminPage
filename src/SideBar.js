@@ -5,52 +5,23 @@ import HealingIcon from "@mui/icons-material/Healing";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Treatments } from "./Treatments";
+import { Row, Col, Container } from "reactstrap";
+import { Departments } from "./Departments";
+import { Hospitals } from "./Hospitals";
+import { Doctors } from "./Doctors";
+import { Patients } from "./Patients";
+
 
 export const SideBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [showTreatment, setShowTreatment] = useState(false);
-  const [showDepartment, setShowDepartment] = useState(false);
-  const [showHospital, setShowHospital] = useState(false);
-  const [showDoctor, setShowDoctor] = useState(false);
-  const [showPatient, setShowPatient] = useState(false);
 
-  const handleMenuItemClick = (itemName) => {
-    if(itemName === "Treatments"){
-      setShowTreatment(true)
-      setShowDepartment(false)
-      setShowHospital(false)
-      setShowDoctor(false)
-      setShowPatient(false)
-    }
 
-    if(itemName === "Deparments"){
-      setShowTreatment(false)
-      setShowDepartment(true)
-      setShowHospital(false)  
-      setShowDoctor(false)
-      setShowPatient(false)
-    }
-    if(itemName === "Hospitals"){
-      setShowTreatment(false)
-      setShowDepartment(false)
-      setShowHospital(true)
-      setShowDoctor(false)
-      setShowPatient(false)
-    }
-    if(itemName === "Doctors"){
-      setShowTreatment(false)
-      setShowDepartment(false)
-      setShowHospital(false)
-      setShowDoctor(true)
-      setShowPatient(false)
-    }if(itemName === "Patients"){
-      setShowTreatment(false)
-      setShowDepartment(false)
-      setShowHospital(false)
-      setShowDoctor(false)
-      setShowPatient(true)
-    }
-  }
+  const [activeMenuItem, setActiveMenuItem] = useState(null);
+
+const handleMenuItemClick = (itemName) => {
+  setActiveMenuItem(itemName);
+}
+    
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -125,20 +96,33 @@ export const SideBar = () => {
           </Menu>
         </Sidebar>
       )}
-
-      <div>
-        <div>
-          <ArrowForwardIosIcon
-            onClick={toggleSidebar}
-            style={{
-              cursor: "pointer",
-              width:"30px",
-              height:"30px",
-              color: "#3c879e"
-            }}
-          />
-        </div>
-      </div>
+      <Container data-aos="fade-up">
+        <Row>
+          <Col lg="6" data-aos="fade-right">
+            <ArrowForwardIosIcon
+              onClick={toggleSidebar}
+              style={{
+                cursor: "pointer",
+                width: "30px",
+                height: "30px",
+                color: "#3c879e",
+              }}
+            />
+          </Col>
+          <Col
+            style={{ textAlign: "center" }}
+            lg="6"
+            className="pt-4 pt-lg-0 content"
+            data-aos="fade-left"
+          >
+            {activeMenuItem === "Treatments" && <Treatments />}
+            {activeMenuItem === "Departments" && <Departments />}
+            {activeMenuItem === "Hospitals" && <Hospitals />}
+            {activeMenuItem === "Doctors" && <Doctors />}
+            {activeMenuItem === "Patients" && <Patients />}
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
