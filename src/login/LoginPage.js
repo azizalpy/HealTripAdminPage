@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import './LoginPage.css'; 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,9 +8,8 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-
-  const handleLogin = async(e) =>{
-    e.preventDefault()
+  const handleLogin = async (e) => {
+    e.preventDefault();
   
     const payload = {
       email: email,
@@ -23,7 +22,7 @@ function LoginPage() {
       navigate("/home");
       window.location.reload(); 
     } catch (error) {
-      console.error('Signup error:', error);
+      console.error('Login error:', error);
     }
   }
 

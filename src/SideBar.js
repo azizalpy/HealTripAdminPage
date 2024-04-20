@@ -106,7 +106,7 @@ export const SideBar = () => {
             />
           </Col>
           <Col
-            style={{ textAlign: "center" }}
+            style={{ paddingLeft: "250px" }}
             lg="6"
             className="pt-4 pt-lg-0 content"
             data-aos="fade-left"
