@@ -17,6 +17,10 @@ export const Departments = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
+    fetchDepartments();
+  }, []);
+
+  const fetchDepartments = () => {
     axios.get("https://healtrip.azurewebsites.net/department/getAll")
       .then((response) => {
         setDepartments(response.data);
@@ -24,20 +28,49 @@ export const Departments = () => {
       .catch((error) => {
         console.error("Error fetching departments:", error);
       });
-  }, []);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const departmentName = e.target.elements.departmentName.value;
-
+  
     console.log("Department Name:", departmentName);
-
+  
+    axios
+      .post("https://healtrip.azurewebsites.net/department/add", {
+        departmentName,
+      })
+      .then(() => {
+        fetchDepartments(); 
+      })
+      .catch((error) => {
+        console.error("Error adding department:", error);
+      });
+  
     e.target.reset();
   };
+  
+  const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
+  
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+  
+    axios.delete(`https://healtrip.azurewebsites.net/department/delete/${id}`, { headers })
+      .then(() => {
+        fetchDepartments();
+      })
+      .catch((error) => {
+        console.error("Error deleting department:", error);
+      });
+  };
+  
 
   const handleAddButtonClick = () => {
     setShowPopup(true);
+    setDepartments([]);
   };
 
   return (
@@ -72,7 +105,7 @@ export const Departments = () => {
               <span>{department.departmentName}</span>
               <div>
                 <EditIcon style={{cursor: "pointer", color:"darkblue"}} />
-                <DeleteIcon style={{cursor: "pointer", color:"red"}} />
+                <DeleteIcon style={{cursor: "pointer", color:"red"}} onClick={() => handleDelete(department.id)} />
               </div>
             </li>
           ))}
