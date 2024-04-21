@@ -4,7 +4,7 @@ import "./SideBar.css";
 import HealingIcon from "@mui/icons-material/Healing";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Treatments } from "./Treatments";
+import { Treatments } from "./treatment/Treatments";
 import { Row, Col, Container } from "reactstrap";
 import { Departments } from "./Departments";
 import { Hospitals } from "./Hospitals";
