@@ -3,6 +3,7 @@ import { Grid, Paper, TextField, Button } from "@material-ui/core";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const Departments = () => {
   const paperStyle = {
@@ -31,6 +32,11 @@ export const Departments = () => {
   };
 
   const handleSubmit = (e) => {
+    const token = localStorage.getItem("token");
+  
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     e.preventDefault();
   
     const departmentName = e.target.elements.departmentName.value;
@@ -40,32 +46,49 @@ export const Departments = () => {
     axios
       .post("https://healtrip.azurewebsites.net/department/add", {
         departmentName,
-      })
+      }, {headers})
       .then(() => {
-        fetchDepartments(); 
+        fetchDepartments();
+        Swal.fire("Successfully!", "Department added successfully.", "success");
       })
       .catch((error) => {
-        console.error("Error adding department:", error);
+        console.error("An error occurred while attempting to delete the section.", error);
+        Swal.fire("Error!", "An error occurred while attempting to delete the section.", "error");
       });
   
     e.target.reset();
-  };
+    setShowPopup(false);
+  };  
   
   const handleDelete = (id) => {
-    const token = localStorage.getItem("token");
-  
-    const headers = {
-      Authorization: `Bearer ${token}`
-    };
-  
-    axios.delete(`https://healtrip.azurewebsites.net/department/delete/${id}`, { headers })
-      .then(() => {
-        fetchDepartments();
-      })
-      .catch((error) => {
-        console.error("Error deleting department:", error);
-      });
+    Swal.fire({
+      title: "Are you sure you want to delete this department?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const token = localStorage.getItem("token");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        axios
+          .delete(`https://healtrip.azurewebsites.net/department/delete/${id}`, { headers })
+          .then(() => {
+            fetchDepartments();
+            Swal.fire("Deleted!", "Deleted Successfully.", "success");
+          })
+          .catch((error) => {
+            console.error("An error occurred while attempting to delete the section.", error);
+            Swal.fire("An error occurred while attempting to delete the section.", error);
+          });
+      }
+    });
   };
+  
   
 
   const handleAddButtonClick = () => {
