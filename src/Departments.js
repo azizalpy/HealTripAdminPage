@@ -89,8 +89,6 @@ export const Departments = () => {
     });
   };
   
-  
-
   const handleAddButtonClick = () => {
     setShowPopup(true);
     setDepartments([]);
@@ -127,8 +125,8 @@ export const Departments = () => {
             >
               <span>{department.departmentName}</span>
               <div>
-                <EditIcon style={{cursor: "pointer", color:"darkblue"}} />
-                <DeleteIcon style={{cursor: "pointer", color:"red"}} onClick={() => handleDelete(department.id)} />
+                <EditIcon style={{cursor: "pointer", color:"#265867", paddingRight:"10px"}} />
+                <DeleteIcon style={{cursor: "pointer", color:"#d33"}} onClick={() => handleDelete(department.id)} />
               </div>
             </li>
           ))}
