@@ -43,7 +43,20 @@ export const Treatments = () => {
         <>
           <ul className="list-group mb-4">
             {currentTreatments.map((treatment) => (
-              <li key={treatment.id} className="list-group-item">
+              <li
+                key={treatment.id}
+                className="list-group-item"
+                style={{
+                  marginTop: "50px",
+                  border: "1px solid #ccc",
+                  padding: "50px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "80%",
+                  marginLeft: "30px",
+                }}
+              >
                 {treatment.retreat_name}
               </li>
             ))}

@@ -10,7 +10,7 @@ export const CustomPagination = ({ treatmentsPerPage, totalTreatments, paginate,
   };
 
   return (
-    <Stack spacing={2} direction="row" justifyContent="center" alignItems="center">
+    <Stack spacing={2} direction="row" justifyContent="center" alignItems="center" style={{marginBottom:"15px"}}>
       <Pagination count={pageCount} page={currentPage} onChange={handleChange} color="primary" />
     </Stack>
   );
