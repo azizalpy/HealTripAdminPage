@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CustomPagination } from "./CustomPagination";
+import ImageComponentFromBase64 from "../ImageComponentFromBase64";
 
 export const Treatments = () => {
   const [treatments, setTreatments] = useState([]);
@@ -33,7 +34,6 @@ export const Treatments = () => {
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <div className="container mt-5">
       <h1>Treatments</h1>
@@ -47,17 +47,16 @@ export const Treatments = () => {
                 key={treatment.id}
                 className="list-group-item"
                 style={{
-                  marginTop: "50px",
                   border: "1px solid #ccc",
-                  padding: "50px",
                   display: "flex",
-                  justifyContent: "space-between",
                   alignItems: "center",
                   width: "80%",
-                  marginLeft: "30px",
+                  padding: "10px",
+                  paddingRight: "100px"
                 }}
               >
-                {treatment.retreat_name}
+                <ImageComponentFromBase64 base64String={treatment.image.image} />
+                <span style={{ paddingLeft: "20px"}}>{treatment.retreat_name}</span>
               </li>
             ))}
           </ul>
@@ -70,5 +69,5 @@ export const Treatments = () => {
         </>
       )}
     </div>
-  );
+  );  
 };
