@@ -22,7 +22,7 @@ export const Treatments = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [treatmentsPerPage] = useState(5);
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedDepartmentId, setSelectedDepartmentId] = useState("");
   const [departments, setDepartments] = useState([]);
 
 
@@ -43,34 +43,40 @@ export const Treatments = () => {
     setLoading(false);
   };
 
-  const handleSubmit = (e) => {
-    const token = localStorage.getItem("token");
-  
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const treatmentName = e.target.elements.treatmentName.value;
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
   
-    console.log("Treatment Name:", treatmentName);
+      const treatmentName = e.target.elements.treatmentName.value;
+      const treatmentDescription = e.target.elements.treatmentDescription.value;
   
-    axios
-      .post("https://healtrip.azurewebsites.net/retreat/add", {
-        treatmentName,
-      }, {headers})
-      .then(() => {
-        fetchTreatments();
-        Swal.fire("Successfully!", "Treatment added successfully.", "success");
-      })
-      .catch((error) => {
-        console.error("An error occurred while attempting to delete the section.", error);
-        Swal.fire("Error!", "An error occurred while attempting to delete the section.", "error");
-      });
+      await axios.post(
+        "https://healtrip.azurewebsites.net/retreat/add",
+        {
+          retreat_name: treatmentName,
+          description: treatmentDescription,
+          departmentId: selectedDepartmentId,
+          imageId:21
+        },
+        { headers }
+      );
   
-    e.target.reset();
-    setShowPopup(false);
+      fetchTreatments();
+      Swal.fire("Successfully!", "Treatment added successfully.", "success");
+    } catch (error) {
+      console.error("An error occurred while attempting to add the treatment.", error);
+      Swal.fire("Error!", "An error occurred while attempting to add the treatment.", "error");
+    } finally {
+      e.target.reset();
+      setShowPopup(false);
+    }
   };
+  
   
   const handleDelete = (id) => {
     Swal.fire({
@@ -212,22 +218,18 @@ export const Treatments = () => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={selectedOption}
-                    onChange={(event) => setSelectedOption(event.target.value)}
+                    value={selectedDepartmentId}
+                    onChange={(event) => setSelectedDepartmentId(event.target.value)}
                   >
                     {departments.map((department) => (
-                      <MenuItem value={department.departmentName}>{department.departmentName}</MenuItem>))
-                      
-                      
+                      <MenuItem value={department.id}>{department.departmentName}</MenuItem>))
                     }
-
                   </Select>
-                </FormControl>
-                
-               
+                </FormControl>      
                 <input
                   accept="image/*"
                   style={{ display: "none"}}
+                  name="image"
                   id="raised-button-file"
                   multiple
                   type="file"
