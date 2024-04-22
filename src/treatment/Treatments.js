@@ -27,18 +27,14 @@ export const Treatments = () => {
   const [image, setImage] = useState("");
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Yüklenen ilk dosyayı al
-    const reader = new FileReader(); // FileReader oluştur
+    const file = e.target.files[0]; 
+    const reader = new FileReader(); 
   
-    // Dosya okunduğunda yapılacak işlem
     reader.onload = () => {
-      const base64Image = reader.result; // Dosyayı base64 formatına çevir
-       // Base64 formatındaki resmi konsola yazdır (isteğe bağlı)
+      const base64Image = reader.result; 
       setImage(base64Image);
-      // Base64 formatındaki resmi başka bir işlemde kullanmak isterseniz burada kullanabilirsiniz
     };
   
-    // Dosyayı oku
     reader.readAsDataURL(file);
   };
   
@@ -81,7 +77,6 @@ export const Treatments = () => {
       );
       
       console.log("after image is worked")
-      // Gönderim için kullanılacak imageId'yi alın
       const imageId = imageResponse.data;
       console.log("image id", imageId);
   
