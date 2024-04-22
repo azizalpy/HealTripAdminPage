@@ -24,7 +24,24 @@ export const Treatments = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedDepartmentId, setSelectedDepartmentId] = useState("");
   const [departments, setDepartments] = useState([]);
+  const [image, setImage] = useState("");
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // Yüklenen ilk dosyayı al
+    const reader = new FileReader(); // FileReader oluştur
+  
+    // Dosya okunduğunda yapılacak işlem
+    reader.onload = () => {
+      const base64Image = reader.result; // Dosyayı base64 formatına çevir
+       // Base64 formatındaki resmi konsola yazdır (isteğe bağlı)
+      setImage(base64Image);
+      // Base64 formatındaki resmi başka bir işlemde kullanmak isterseniz burada kullanabilirsiniz
+    };
+  
+    // Dosyayı oku
+    reader.readAsDataURL(file);
+  };
+  
 
   useEffect(() => {
     fetchTreatments();
@@ -54,6 +71,19 @@ export const Treatments = () => {
   
       const treatmentName = e.target.elements.treatmentName.value;
       const treatmentDescription = e.target.elements.treatmentDescription.value;
+      const base64Image = image.split(",")[1];
+      const imageResponse = await axios.post(
+        "https://healtrip.azurewebsites.net/image/retreat/save",
+        {
+          image:base64Image
+        },
+        { headers }
+      );
+      
+      console.log("after image is worked")
+      // Gönderim için kullanılacak imageId'yi alın
+      const imageId = imageResponse.data;
+      console.log("image id", imageId);
   
       await axios.post(
         "https://healtrip.azurewebsites.net/retreat/add",
@@ -61,7 +91,7 @@ export const Treatments = () => {
           retreat_name: treatmentName,
           description: treatmentDescription,
           departmentId: selectedDepartmentId,
-          imageId:21
+          imageId:imageId
         },
         { headers }
       );
@@ -233,6 +263,7 @@ export const Treatments = () => {
                   id="raised-button-file"
                   multiple
                   type="file"
+                  onChange={handleImageChange}
                 />
                 <label htmlFor="raised-button-file">
                   <Button variant="contained" color="primary" component="span" style={{ marginTop: "50px" }}>
