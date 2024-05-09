@@ -25,7 +25,6 @@ export const Hospitals = () => {
   const [selectedDepartmentIds, setSelectedDepartmentIds] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [image, setImage] = useState("");
-  const [hospitalImageIds, setHospitalImageIds] = useState([]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]; 
@@ -84,7 +83,7 @@ export const Hospitals = () => {
       console.log("after image is worked")
       const imageId = imageResponse.data;
       console.log("image id", imageId);
-      setHospitalImageIds(prevIds => [...prevIds, imageId]);
+      
 
       const addressResponse = await axios.post(
         "https://healtrip.azurewebsites.net/address/add",
@@ -108,7 +107,7 @@ export const Hospitals = () => {
           addressId: addressId,
           contactPhone: contactPhone,
           department_ids: selectedDepartmentIds,
-          hospitalImageIds: hospitalImageIds
+          hospitalImageIds: [imageId]
         },
         { headers }
       );
