@@ -9,7 +9,6 @@ import { Row, Col, Container } from "reactstrap";
 import { Departments } from "./Departments";
 import { Hospitals } from "./Hospitals";
 import { Doctors } from "./Doctors";
-import { Patients } from "./Patients";
 
 export const SideBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -83,12 +82,6 @@ export const SideBar = () => {
             >
               Doctors
             </MenuItem>
-            <MenuItem
-              className="custom-menu-item"
-              onClick={() => handleMenuItemClick("Patients")}
-            >
-              Patients
-            </MenuItem>
           </Menu>
         </Sidebar>
       )}
@@ -115,7 +108,6 @@ export const SideBar = () => {
             {activeMenuItem === "Departments" && <Departments />}
             {activeMenuItem === "Hospitals" && <Hospitals />}
             {activeMenuItem === "Doctors" && <Doctors />}
-            {activeMenuItem === "Patients" && <Patients />}
           </Col>
         </Row>
       </Container>
